@@ -2,3 +2,11 @@
 project.private.config.json
 Prompt_history.md
 *.log
+node_modules/
+dist/
+build/
+coverage/
+.idea/
+.vscode/
+*.swp
+*.swo
