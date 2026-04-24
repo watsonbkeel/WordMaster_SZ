@@ -1,0 +1,32 @@
+<view class="profile-page">
+  <view class="profile-card">
+    <view class="avatar">{{avatarText}}</view>
+    <view class="account-info">
+      <text class="label">当前账号</text>
+      <view class="name-row" bindtap="onEditName">
+        <text class="name">{{userName}}</text>
+        <text class="edit-tag">点击修改</text>
+      </view>
+    </view>
+  </view>
+
+  <button class="account-button" bindtap="onManageAccounts">切换 / 添加账号</button>
+
+  <view class="setting-list">
+    <view class="setting-item">
+      <text class="setting-label">选择年级</text>
+      <picker mode="selector" range="{{gradeOptions}}" value="{{gradeIndex}}" bindchange="onGradeChange">
+        <view class="picker-value">{{gradeOptions[gradeIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="setting-item">
+      <text class="setting-label">选择学期</text>
+      <picker mode="selector" range="{{semesterOptions}}" value="{{semesterIndex}}" bindchange="onSemesterChange">
+        <view class="picker-value">{{semesterOptions[semesterIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <button class="danger-button" bindtap="onClearProgress">清除当前账号进度</button>
+</view>

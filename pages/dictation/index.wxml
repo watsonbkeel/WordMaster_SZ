@@ -1,0 +1,29 @@
+<view class="dictation-page">
+  <view wx:if="{{wordList.length}}" class="dictation-panel">
+    <view class="dictation-header">
+      <text class="progress-text">{{currentIndex + 1}} / {{wordList.length}}</text>
+      <picker mode="selector" range="{{intervalOptions}}" value="{{intervalIndex}}" bindchange="onIntervalChange">
+        <text class="setting-text">语速/间隔：{{intervalSeconds}}秒</text>
+      </picker>
+    </view>
+
+    <view class="dictation-main">
+      <text class="meaning-text">{{wordList[currentIndex].meaning}}</text>
+      <view class="play-button" bindtap="onReplayWord">
+        <text class="play-icon">{{isPlaying ? '⏸️' : '▶️'}}</text>
+      </view>
+      <text class="hint-text">点击中间按钮可重复朗读当前词</text>
+      <text wx:if="{{isPlaying && countdown > 0}}" class="countdown-text">发音结束，{{countdown}} 秒后自动进入下一个</text>
+    </view>
+
+    <view class="control-bar">
+      <button class="control-button secondary" bindtap="onPrevWord">上一个</button>
+      <button class="control-button primary" bindtap="onTogglePlay">{{isPlaying ? '暂停' : '开始'}}</button>
+      <button class="control-button secondary" bindtap="onNextWord">下一个</button>
+    </view>
+  </view>
+
+  <view wx:else class="empty-panel">
+    <text class="empty-text">当前没有可用于听写的单词列表</text>
+  </view>
+</view>

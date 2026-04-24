@@ -1,0 +1,64 @@
+<view class="words-page">
+  <view wx:if="{{!hasDictionaryData}}" class="empty-box">
+    <text class="empty-text">🚧 当前年级/学期的词库正在由老师紧急录入中，请先去【我的】页面切换到【6年级 下学期】体验吧！</text>
+  </view>
+
+  <block wx:else>
+    <view class="dictation-entry">
+      <button class="dictation-button" bindtap="onStartDictation">🎧 开始本单元自动听写</button>
+    </view>
+
+    <view class="tabs">
+      <view
+        class="tab-item {{activeTab === 'review' ? 'tab-item--active' : ''}}"
+        data-tab="review"
+        bindtap="onSwitchTab"
+      >
+        待复习
+      </view>
+      <view
+        class="tab-item {{activeTab === 'mastered' ? 'tab-item--active' : ''}}"
+        data-tab="mastered"
+        bindtap="onSwitchTab"
+      >
+        已掌握
+      </view>
+    </view>
+
+    <view wx:if="{{activeTab === 'review'}}" class="list-panel">
+      <view wx:if="{{reviewList.length}}" class="word-list">
+        <view wx:for="{{reviewList}}" wx:key="word_id" class="word-item" data-id="{{item.word_id}}" bindtap="onOpenDetail">
+          <view class="word-item__main">
+            <text class="word-item__word">{{item.word}}</text>
+            <text class="word-item__meaning">{{item.meaning}}</text>
+          </view>
+          <view class="word-item__meta">
+            <text class="word-item__stars">{{item.stars || '暂未点亮星星'}}</text>
+            <text class="word-item__time">{{item.reviewLabel}}</text>
+          </view>
+        </view>
+      </view>
+      <view wx:else class="empty-box">
+        <text class="empty-text">太棒了，当前没有待复习单词</text>
+      </view>
+    </view>
+
+    <view wx:if="{{activeTab === 'mastered'}}" class="list-panel">
+      <view wx:if="{{masteredList.length}}" class="word-list">
+        <view wx:for="{{masteredList}}" wx:key="word_id" class="word-item" data-id="{{item.word_id}}" bindtap="onOpenDetail">
+          <view class="word-item__main">
+            <text class="word-item__word">{{item.word}}</text>
+            <text class="word-item__meaning">{{item.meaning}}</text>
+          </view>
+          <view class="word-item__meta">
+            <text class="word-item__stars">{{item.stars}}</text>
+            <text class="word-item__time">{{item.reviewLabel}}</text>
+          </view>
+        </view>
+      </view>
+      <view wx:else class="empty-box">
+        <text class="empty-text">继续加油，已掌握单词会出现在这里</text>
+      </view>
+    </view>
+  </block>
+</view>

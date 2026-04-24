@@ -1,0 +1,21 @@
+page {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 32rpx;
+  background: #F4F8F4;
+  color: #2F3A33;
+  font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+}
+
+view,
+text,
+button,
+input,
+textarea,
+scroll-view,
+swiper,
+image,
+navigator {
+  box-sizing: border-box;
+}

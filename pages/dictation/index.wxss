@@ -1,0 +1,109 @@
+.dictation-page {
+  min-height: 100vh;
+  padding: 32rpx 24rpx 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #172127 0%, #202d35 100%);
+}
+
+.dictation-panel,
+.empty-panel {
+  width: 100%;
+  max-width: 680rpx;
+  padding: 40rpx 28rpx;
+  border-radius: 36rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1rpx solid rgba(255, 255, 255, 0.1);
+}
+
+.dictation-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.progress-text,
+.setting-text {
+  font-size: 26rpx;
+  color: #e5f0ea;
+}
+
+.dictation-main {
+  min-height: 560rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.meaning-text {
+  font-size: 52rpx;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.play-button {
+  width: 180rpx;
+  height: 180rpx;
+  margin-top: 48rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4fa38a 0%, #66c4a4 100%);
+  box-shadow: 0 16rpx 36rpx rgba(79, 163, 138, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-icon {
+  font-size: 76rpx;
+}
+
+.hint-text {
+  margin-top: 28rpx;
+  font-size: 24rpx;
+  color: #afc4bb;
+  text-align: center;
+}
+
+.control-bar {
+  display: flex;
+  gap: 18rpx;
+}
+
+.control-button {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  border: none;
+  border-radius: 24rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.control-button::after {
+  border: none;
+}
+
+.control-button.primary {
+  background: #4fa38a;
+  color: #ffffff;
+}
+
+.control-button.secondary {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.empty-panel {
+  text-align: center;
+}
+
+.empty-text {
+  font-size: 30rpx;
+  line-height: 1.8;
+  color: #ffffff;
+}

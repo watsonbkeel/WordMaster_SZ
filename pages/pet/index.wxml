@@ -1,0 +1,21 @@
+<view class="pet-page">
+  <view class="pet-card">
+    <text class="pet-level">Lv.{{growth.level}}</text>
+    <view class="progress-track">
+      <view class="progress-fill" style="width: {{levelProgressPercent}}%;"></view>
+    </view>
+    <text class="progress-text">{{levelProgress}} / 100 EXP</text>
+
+    <view class="pet-stage">
+      <text class="pet-emoji {{petAnimating ? 'pet-emoji--active' : ''}}">🦖</text>
+      <text wx:if="{{heartVisible}}" class="pet-heart">+1 💖</text>
+    </view>
+
+    <text class="coin-text">💰 {{growth.coins}} 枚</text>
+
+    <button wx:if="{{growth.coins >= 10}}" class="feed-button" bindtap="onFeedPet">喂食宠物（消耗 10 金币）</button>
+    <button wx:else class="feed-button feed-button--earn" bindtap="onGoGame">去玩拼字游戏赚金币 🎮</button>
+
+    <text class="game-link" bindtap="onGoGame">🎮 挑战拼字游戏赚金币</text>
+  </view>
+</view>

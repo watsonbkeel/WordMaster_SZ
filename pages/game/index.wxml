@@ -1,0 +1,52 @@
+<view class="game-page">
+  <view wx:if="{{!hasDictionaryData}}" class="game-panel finish-panel">
+    <text class="finish-emoji">🚧</text>
+    <text class="finish-title">小游戏词库准备中</text>
+    <text class="finish-text">当前年级/学期的词库正在由老师紧急录入中，请先切换到【6年级 下学期】体验吧！</text>
+    <button class="primary-button" bindtap="onBackToLearn">返回学习</button>
+  </view>
+
+  <view wx:elif="{{showAnswerHelp}}" class="game-panel finish-panel">
+    <text class="finish-emoji">💡</text>
+    <text class="finish-title">这个单词这样拼</text>
+    <text class="finish-text answer-word">{{revealedWord}}</text>
+    <text class="finish-text">先看看完整拼写，再决定继续挑战，还是返回学习。</text>
+    <button class="primary-button" bindtap="onTryNextWord">继续挑战</button>
+    <button class="secondary-button" bindtap="onBackToLearn">返回学习</button>
+  </view>
+
+  <view wx:elif="{{currentWord}}" class="game-panel">
+    <view class="game-status">
+      <text class="heart-text">❤️ {{hearts}}</text>
+      <text class="combo-text">🔥 Combo x {{combo}}</text>
+      <text class="score-text">答对 {{score}} 个</text>
+    </view>
+
+    <text class="meaning">{{currentWord.meaning}}</text>
+
+    <view class="answer-slots">
+      <view wx:for="{{letterSlots}}" wx:key="id" class="slot">
+        <text class="slot-letter">{{item.value}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{isSuccess}}" class="success-tip">✨ 拼对啦！继续连击！</view>
+
+    <view class="letters-area">
+      <view
+        wx:for="{{scrambledLetters}}"
+        wx:key="id"
+        class="letter-block"
+        data-id="{{item.id}}"
+        bindtap="onTapLetter"
+      >
+        {{item.letter}}
+      </view>
+    </view>
+
+    <view class="bottom-actions">
+      <button class="secondary-button" bindtap="onResetSelection">清空重排</button>
+      <button class="primary-button" bindtap="onBackToLearn">退出游戏返回学习</button>
+    </view>
+  </view>
+</view>

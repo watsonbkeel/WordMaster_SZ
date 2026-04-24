@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/learn/index",
+    "pages/words/index",
+    "pages/profile/index",
+    "pages/pet/index",
+    "pages/game/index",
+    "pages/detail/index",
+    "pages/dictation/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#F6FAF7",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "WordMaster",
+    "backgroundColor": "#F6FAF7",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#7A8F85",
+    "selectedColor": "#4FA38A",
+    "backgroundColor": "#F6FAF7",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/learn/index",
+        "text": "学习"
+      },
+      {
+        "pagePath": "pages/words/index",
+        "text": "词库"
+      },
+      {
+        "pagePath": "pages/pet/index",
+        "text": "宠物"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "requiredBackgroundModes": [
+    "audio"
+  ]
+}

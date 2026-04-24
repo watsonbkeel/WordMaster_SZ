@@ -1,0 +1,120 @@
+.profile-page {
+  min-height: 100vh;
+  padding: 28rpx 24rpx 40rpx;
+}
+
+.profile-card {
+  padding: 28rpx 24rpx;
+  background: #ffffff;
+  border-radius: 28rpx;
+  box-shadow: 0 10rpx 24rpx rgba(117, 150, 131, 0.08);
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7bd3b3 0%, #4fa38a 100%);
+  color: #ffffff;
+  font-size: 40rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.account-info {
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 24rpx;
+  color: #8fa095;
+}
+
+.name-row {
+  margin-top: 8rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.name {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #2f3a33;
+}
+
+.edit-tag {
+  font-size: 24rpx;
+  color: #4fa38a;
+}
+
+.account-button {
+  width: 100%;
+  margin-top: 24rpx;
+  height: 84rpx;
+  line-height: 84rpx;
+  border: none;
+  border-radius: 24rpx;
+  background: #eef5ff;
+  color: #5a8dee;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.account-button::after,
+.danger-button::after {
+  border: none;
+}
+
+.setting-list {
+  margin-top: 24rpx;
+  background: #ffffff;
+  border-radius: 28rpx;
+  box-shadow: 0 10rpx 24rpx rgba(117, 150, 131, 0.08);
+  overflow: hidden;
+}
+
+.setting-item {
+  padding: 28rpx 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.setting-item + .setting-item {
+  border-top: 1rpx solid #eef3ef;
+}
+
+.setting-label {
+  font-size: 30rpx;
+  color: #2f3a33;
+}
+
+.picker-value {
+  min-width: 180rpx;
+  padding: 14rpx 20rpx;
+  border-radius: 999rpx;
+  background: #edf5ef;
+  font-size: 28rpx;
+  color: #4fa38a;
+  text-align: center;
+}
+
+.danger-button {
+  width: 100%;
+  margin-top: 32rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  border: none;
+  border-radius: 24rpx;
+  background: #e86d5a;
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 700;
+}

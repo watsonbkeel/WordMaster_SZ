@@ -1,0 +1,113 @@
+.detail-page {
+  min-height: 100vh;
+  padding: 40rpx 32rpx 56rpx;
+}
+
+.word-card,
+.empty-panel {
+  width: 100%;
+  max-width: 680rpx;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 32rpx;
+  box-shadow: 0 16rpx 36rpx rgba(117, 150, 131, 0.12);
+}
+
+.word-card {
+  padding: 48rpx 36rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.word {
+  font-size: 64rpx;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #223229;
+  text-align: center;
+  word-break: break-word;
+}
+
+.phonetic {
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  color: #8a9690;
+  text-align: center;
+}
+
+.image-wrap,
+.image-placeholder {
+  width: 100%;
+  margin-top: 28rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 10rpx 24rpx rgba(117, 150, 131, 0.12);
+}
+
+.word-image {
+  width: 100%;
+  height: 280rpx;
+  display: block;
+}
+
+.image-placeholder {
+  height: 220rpx;
+  background: linear-gradient(180deg, #f4faf6 0%, #edf6ef 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-placeholder__text {
+  font-size: 30rpx;
+  color: #8fa095;
+}
+
+.sound-button {
+  margin-top: 28rpx;
+  padding: 18rpx 28rpx;
+  border-radius: 999rpx;
+  background: #eef7f1;
+}
+
+.sound-button__text {
+  font-size: 28rpx;
+  color: #4fa38a;
+  font-weight: 600;
+}
+
+.meaning-card {
+  width: 100%;
+  margin-top: 36rpx;
+  padding: 28rpx;
+  border-radius: 24rpx;
+  background: #f7fbf8;
+}
+
+.info-block + .info-block {
+  margin-top: 20rpx;
+}
+
+.info-label {
+  display: block;
+  margin-bottom: 8rpx;
+  font-size: 24rpx;
+  color: #7a8f85;
+}
+
+.info-text {
+  font-size: 30rpx;
+  line-height: 1.7;
+  color: #2f3a33;
+}
+
+.empty-panel {
+  padding: 80rpx 36rpx;
+  text-align: center;
+}
+
+.empty-title {
+  font-size: 34rpx;
+  color: #6a7d73;
+}

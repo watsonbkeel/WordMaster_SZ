@@ -1,0 +1,39 @@
+<view class="detail-page">
+  <view wx:if="{{wordData}}" class="word-card">
+    <text class="word">{{wordData.word}}</text>
+    <text class="phonetic">{{wordData.phonetic}}</text>
+
+    <view wx:if="{{wordData.image_url}}" class="image-wrap">
+      <image class="word-image" src="{{wordData.image_url}}" mode="aspectFill"></image>
+    </view>
+
+    <view wx:else class="image-placeholder">
+      <text class="image-placeholder__text">🖼️ 图片准备中</text>
+    </view>
+
+    <view class="sound-button" bindtap="onPlaySound">
+      <text class="sound-button__text">▶ 播放声音</text>
+    </view>
+
+    <view class="meaning-card">
+      <view class="info-block">
+        <text class="info-label">中文释义</text>
+        <text class="info-text">{{wordData.meaning}}</text>
+      </view>
+
+      <view class="info-block">
+        <text class="info-label">记忆法</text>
+        <text class="info-text">{{wordData.memory_tip}}</text>
+      </view>
+
+      <view class="info-block">
+        <text class="info-label">例句</text>
+        <text class="info-text">{{wordData.sentence}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-panel">
+    <text class="empty-title">没有找到这个单词</text>
+  </view>
+</view>
