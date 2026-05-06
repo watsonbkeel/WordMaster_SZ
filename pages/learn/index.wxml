@@ -18,7 +18,7 @@
   <view wx:if="{{!hasDictionaryData}}" class="empty-panel">
     <text class="empty-emoji">🚧</text>
     <text class="empty-title">当前词库暂未开放</text>
-    <text class="empty-text">当前年级/学期的词库正在由老师紧急录入中，请先去【我的】页面切换到【6年级 下学期】体验吧！</text>
+    <text class="empty-text">当前所选年级/学期暂无可用词库，请先去【我的】页面切换年级或学期。</text>
     <button class="empty-button" bindtap="onGoProfile">去我的页面切换</button>
   </view>
 
@@ -96,7 +96,7 @@
       认识了 {{sessionRecognized}} 个单词，记错了 {{sessionUnrecognized}} 个单词
     </text>
     <text wx:if="{{finishRewardCoins}}" class="finish-reward">🎉 恭喜完成今日任务！获得 {{finishRewardCoins}} 枚金币奖励！</text>
-    <button class="study-more-button" bindtap="onStudyMore">🔥 意犹未尽？再学 5 个！</button>
+    <button class="study-more-button" bindtap="onStudyMore">🔥 意犹未尽？再学一组！</button>
     <button class="finish-button" bindtap="onGoWords">
       查看我的词库
     </button>

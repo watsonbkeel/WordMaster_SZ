@@ -1,4 +1,4 @@
-const gradeOptions = ['1年级', '2年级', '3年级', '4年级', '5年级', '6年级']
+const gradeOptions = Array.from({ length: 12 }, (_, index) => `${index + 1}年级`)
 const semesterOptions = ['上学期', '下学期']
 const DEFAULT_CONFIG = {
   userName: '学生A',
@@ -80,7 +80,7 @@ Page({
     this.setData({
       userName,
       avatarText: userName.slice(-1),
-      gradeIndex: Math.max(grade - 1, 0),
+      gradeIndex: Math.min(Math.max(grade - 1, 0), gradeOptions.length - 1),
       semesterIndex: semester === 2 ? 1 : 0,
       accountList: nextAccountList
     })

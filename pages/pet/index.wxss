@@ -80,16 +80,25 @@
 }
 
 .feed-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  text-align: center;
   width: 100%;
   margin-top: 36rpx;
   height: 96rpx;
-  line-height: 96rpx;
+  padding: 0 24rpx;
   border: none;
   border-radius: 24rpx;
   background: #4fa38a;
   color: #ffffff;
-  font-size: 32rpx;
+  font-size: 28rpx;
   font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .feed-button--earn {

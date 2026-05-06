@@ -2,7 +2,7 @@
   <view wx:if="{{!hasDictionaryData}}" class="game-panel finish-panel">
     <text class="finish-emoji">🚧</text>
     <text class="finish-title">小游戏词库准备中</text>
-    <text class="finish-text">当前年级/学期的词库正在由老师紧急录入中，请先切换到【6年级 下学期】体验吧！</text>
+    <text class="finish-text">当前所选年级/学期暂无可用词库，请先去【我的】页面切换年级或学期。</text>
     <button class="primary-button" bindtap="onBackToLearn">返回学习</button>
   </view>
 
@@ -22,7 +22,7 @@
       <text class="score-text">答对 {{score}} 个</text>
     </view>
 
-    <text class="meaning">{{currentWord.meaning}}</text>
+    <text class="meaning">{{currentPrompt}}</text>
 
     <view class="answer-slots">
       <view wx:for="{{letterSlots}}" wx:key="id" class="slot">

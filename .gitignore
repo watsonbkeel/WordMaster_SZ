@@ -10,3 +10,7 @@ coverage/
 .vscode/
 *.swp
 *.swo
+
+fullDictionary.js
+新对话.png
+scripts/

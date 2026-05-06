@@ -7,13 +7,33 @@ const DEFAULT_CONFIG = {
   grade: 1,
   semester: 1
 }
+const MIN_GRADE = 1
+const MAX_GRADE = 12
 const CONFIG_STORAGE_KEY = 'currentConfig'
 const ONE_DAY_MS = 24 * 60 * 60 * 1000
-const MAX_NEW_WORDS_PER_DAY = 5
 const MASTERED_REVIEW_DELAY_MS = 36500 * ONE_DAY_MS
-const REST_TRIGGER_COUNT = 5
-const EXTRA_STUDY_COUNT = 5
 const DAILY_REWARD_COINS = 5
+const REVIEW_PICK_WINDOW_MS = 2 * ONE_DAY_MS
+
+function getStudyBatchSizeByGrade(grade) {
+  if (grade <= 2) {
+    return 5
+  }
+
+  if (grade <= 4) {
+    return 6
+  }
+
+  if (grade <= 6) {
+    return 7
+  }
+
+  if (grade <= 9) {
+    return 8
+  }
+
+  return 10
+}
 
 Page({
   data: {
@@ -24,7 +44,7 @@ Page({
     sessionUnrecognized: 0,
     wordsLearnedThisSession: 0,
     isResting: false,
-    restTriggerCount: REST_TRIGGER_COUNT,
+    restTriggerCount: getStudyBatchSizeByGrade(DEFAULT_CONFIG.grade),
     hasDictionaryData: true,
     isExpandedWords: false,
     growth: {
@@ -37,7 +57,8 @@ Page({
     levelProgressPercent: 0,
     expToastText: '',
     expToastVisible: false,
-    finishRewardCoins: 0
+    finishRewardCoins: 0,
+    studyMoreCount: getStudyBatchSizeByGrade(DEFAULT_CONFIG.grade)
   },
 
   onLoad() {
@@ -102,8 +123,8 @@ Page({
     if (storedConfig && typeof storedConfig === 'object') {
       return {
         userName: storedConfig.userName || DEFAULT_CONFIG.userName,
-        grade: storedConfig.grade || DEFAULT_CONFIG.grade,
-        semester: storedConfig.semester || DEFAULT_CONFIG.semester
+        grade: Math.min(Math.max(storedConfig.grade || DEFAULT_CONFIG.grade, MIN_GRADE), MAX_GRADE),
+        semester: storedConfig.semester === 2 ? 2 : 1
       }
     }
 
@@ -175,7 +196,7 @@ Page({
         return
       }
 
-      if (progress.nextReviewTime <= now) {
+      if (progress.nextReviewTime <= now + REVIEW_PICK_WINDOW_MS) {
         reviewWords.push(wordItem)
       }
     })
@@ -214,11 +235,11 @@ Page({
       })
       const lowerPriorityWords = lowerGradeWords.filter((item) => {
         const progress = this.userProgress[item.word_id]
-        return !progress || progress.memoryLevel < 5
+        return !progress || progress.memoryLevel < 3
       })
       const higherPriorityWords = higherGradeWords.filter((item) => {
         const progress = this.userProgress[item.word_id]
-        return !progress || progress.memoryLevel < 5
+        return !progress || progress.memoryLevel < 3
       })
       const fallbackWords = lowerPriorityWords.concat(higherPriorityWords)
 
@@ -239,7 +260,8 @@ Page({
   },
 
   initializeTodayWords(forceExtra = false) {
-    const sessionData = this.pickWordsForSession(forceExtra ? EXTRA_STUDY_COUNT : MAX_NEW_WORDS_PER_DAY, forceExtra)
+    const studyBatchSize = getStudyBatchSizeByGrade(this.currentConfig.grade)
+    const sessionData = this.pickWordsForSession(studyBatchSize, forceExtra)
 
     this.setData({
       words: sessionData.words,
@@ -249,10 +271,11 @@ Page({
       sessionUnrecognized: 0,
       wordsLearnedThisSession: 0,
       isResting: false,
-      restTriggerCount: REST_TRIGGER_COUNT,
+      restTriggerCount: getStudyBatchSizeByGrade(this.currentConfig.grade),
       hasDictionaryData: sessionData.hasDictionaryData,
       isExpandedWords: sessionData.isExpandedWords,
-      finishRewardCoins: 0
+      finishRewardCoins: 0,
+    studyMoreCount: getStudyBatchSizeByGrade(DEFAULT_CONFIG.grade)
     })
 
     this.dailyRewardGranted = false
@@ -404,7 +427,7 @@ Page({
     const shouldRest =
       !isFinished &&
       totalLearned > 0 &&
-      totalLearned % REST_TRIGGER_COUNT === 0
+      totalLearned % this.data.restTriggerCount === 0
 
     this.setData({
       currentIndex: nextIndex,

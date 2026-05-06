@@ -17,7 +17,20 @@
     "compileType": "miniprogram",
     "simulatorPluginLibVersion": {},
     "packOptions": {
-        "ignore": [],
+        "ignore": [
+            {
+                "type": "file",
+                "value": "fullDictionary.js"
+            },
+            {
+                "type": "file",
+                "value": "新对话.png"
+            },
+            {
+                "type": "folder",
+                "value": "scripts"
+            }
+        ],
         "include": []
     },
     "appid": "wx7331467712a5a2c9",

@@ -47,7 +47,7 @@ Page({
         reviewLabel: this.formatReviewTime(progress.nextReviewTime)
       }
 
-      if (progress.memoryLevel >= 5) {
+      if (progress.memoryLevel >= 3) {
         masteredList.push(wordData)
         return
       }
@@ -73,8 +73,8 @@ Page({
     if (storedConfig && typeof storedConfig === 'object') {
       return {
         userName: storedConfig.userName || DEFAULT_CONFIG.userName,
-        grade: storedConfig.grade || DEFAULT_CONFIG.grade,
-        semester: storedConfig.semester || DEFAULT_CONFIG.semester
+        grade: Math.min(Math.max(storedConfig.grade || DEFAULT_CONFIG.grade, 1), 12),
+        semester: storedConfig.semester === 2 ? 2 : 1
       }
     }
 

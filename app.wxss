@@ -19,3 +19,21 @@ image,
 navigator {
   box-sizing: border-box;
 }
+
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+button::after {
+  border: none;
+}
+
+button text {
+  text-align: center;
+}

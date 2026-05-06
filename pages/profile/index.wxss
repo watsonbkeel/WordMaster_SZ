@@ -55,6 +55,10 @@
 }
 
 .account-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   width: 100%;
   margin-top: 24rpx;
   height: 84rpx;
@@ -107,6 +111,10 @@
 }
 
 .danger-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   width: 100%;
   margin-top: 32rpx;
   height: 88rpx;

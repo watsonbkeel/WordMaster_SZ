@@ -75,6 +75,10 @@
 }
 
 .control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   flex: 1;
   height: 88rpx;
   line-height: 88rpx;

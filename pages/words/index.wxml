@@ -1,6 +1,6 @@
 <view class="words-page">
   <view wx:if="{{!hasDictionaryData}}" class="empty-box">
-    <text class="empty-text">🚧 当前年级/学期的词库正在由老师紧急录入中，请先去【我的】页面切换到【6年级 下学期】体验吧！</text>
+    <text class="empty-text">🚧 当前所选年级/学期暂无可用词库，请先去【我的】页面切换年级或学期。</text>
   </view>
 
   <block wx:else>
@@ -57,7 +57,7 @@
         </view>
       </view>
       <view wx:else class="empty-box">
-        <text class="empty-text">继续加油，已掌握单词会出现在这里</text>
+        <text class="empty-text">再坚持一下，记忆等级达到 3 的单词会出现在这里</text>
       </view>
     </view>
   </block>

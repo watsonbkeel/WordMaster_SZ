@@ -8,6 +8,46 @@ const DEFAULT_CONFIG = {
   semester: 1
 }
 const MAX_HEARTS = 3
+const ONE_DAY_MS = 24 * 60 * 60 * 1000
+const REVIEW_PICK_WINDOW_MS = 2 * ONE_DAY_MS
+const MASTERED_REVIEW_DELAY_MS = 36500 * ONE_DAY_MS
+
+function calculateNextReviewTime(memoryLevel) {
+  const reviewDaysMap = { 1: 1, 2: 2, 3: 4, 4: 7 }
+  if (memoryLevel >= 5) {
+    return Date.now() + MASTERED_REVIEW_DELAY_MS
+  }
+  const reviewDays = reviewDaysMap[memoryLevel] || 1
+  return Date.now() + reviewDays * ONE_DAY_MS
+}
+
+function buildGamePrompt(wordItem) {
+  const rawMeaning = (wordItem.meaning || '').trim()
+  const normalizedWord = (wordItem.word || '').trim().toLowerCase()
+  const meanings = rawMeaning
+    .split('；')
+    .map((item) => item.trim())
+    .filter(Boolean)
+
+  const hiddenMeaning = meanings.filter((item) => {
+    const normalizedMeaning = item.toLowerCase()
+    return !normalizedMeaning.includes(normalizedWord)
+  })
+
+  if (hiddenMeaning.length) {
+    return `中文提示：${hiddenMeaning[0]}`
+  }
+
+  if (wordItem.sentence) {
+    const sentenceHint = wordItem.sentence.split('（')[0].replace(new RegExp(wordItem.word, 'ig'), '____').trim()
+    if (sentenceHint) {
+      return `例句提示：${sentenceHint}`
+    }
+  }
+
+  return '中文提示暂未生成，请根据字母和长度完成拼写' 
+}
+
 
 Page({
   data: {
@@ -24,15 +64,15 @@ Page({
     score: 0,
     bestCombo: 0,
     showAnswerHelp: false,
-    revealedWord: ''
+    revealedWord: '',
+    currentPrompt: ''
   },
 
   onLoad() {
     this.nextLevelTimer = null
     this.currentConfig = this.loadCurrentConfig()
-    const sourceWords = fullDictionary.filter((item) => {
-      return item.grade === this.currentConfig.grade && item.semester === this.currentConfig.semester
-    })
+    this.userProgress = this.loadUserProgress(this.currentConfig.userName)
+    const sourceWords = this.pickWordsForGame()
 
     if (!sourceWords.length) {
       this.setData({
@@ -48,7 +88,8 @@ Page({
         score: 0,
         bestCombo: 0,
         showAnswerHelp: false,
-        revealedWord: ''
+        revealedWord: '',
+        currentPrompt: ''
       })
       return
     }
@@ -62,7 +103,8 @@ Page({
       score: 0,
       bestCombo: 0,
       showAnswerHelp: false,
-      revealedWord: ''
+      revealedWord: '',
+      currentPrompt: ''
     })
 
     this.loadNextRandomWord()
@@ -81,6 +123,42 @@ Page({
       clearTimeout(this.nextLevelTimer)
       this.nextLevelTimer = null
     }
+  },
+
+  getUserProgressStorageKey(userName) {
+    return `userProgress_${userName}`
+  },
+
+  loadUserProgress(userName) {
+    const storedProgress = wx.getStorageSync(this.getUserProgressStorageKey(userName))
+    if (storedProgress && typeof storedProgress === 'object') {
+      return storedProgress
+    }
+    return {}
+  },
+
+  saveUserProgress() {
+    wx.setStorageSync(this.getUserProgressStorageKey(this.currentConfig.userName), this.userProgress)
+  },
+
+  pickWordsForGame() {
+    const now = Date.now()
+    const currentDictionary = fullDictionary.filter((item) => item.grade === this.currentConfig.grade && item.semester === this.currentConfig.semester)
+    const reviewWords = []
+    const newWords = []
+
+    currentDictionary.forEach((wordItem) => {
+      const progress = this.userProgress[wordItem.word_id]
+      if (!progress) {
+        newWords.push(wordItem)
+        return
+      }
+      if (progress.nextReviewTime <= now + REVIEW_PICK_WINDOW_MS) {
+        reviewWords.push(wordItem)
+      }
+    })
+
+    return reviewWords.concat(newWords)
   },
 
   loadCurrentConfig() {
@@ -146,7 +224,8 @@ Page({
       letterSlots: this.buildDisplaySlots(currentWord.word, []),
       isSuccess: false,
       showAnswerHelp: false,
-      revealedWord: ''
+      revealedWord: '',
+      currentPrompt: buildGamePrompt(currentWord)
     })
   },
 
@@ -213,6 +292,14 @@ Page({
 
     if (selectedWord === expectedWord) {
       const nextCombo = combo + 1
+      const currentProgress = this.userProgress[currentWord.word_id] || { memoryLevel: 0, nextReviewTime: 0 }
+      const nextMemoryLevel = currentProgress.memoryLevel + 1
+      this.userProgress[currentWord.word_id] = {
+        memoryLevel: nextMemoryLevel,
+        nextReviewTime: calculateNextReviewTime(nextMemoryLevel)
+      }
+      this.saveUserProgress()
+
       this.setData({
         isSuccess: true,
         combo: nextCombo,
